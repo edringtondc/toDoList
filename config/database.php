@@ -80,6 +80,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'default' => env('DB_CONNECTION', 'your_heroku_mysql_connection'),
 
         'pgsql' => [
             'driver' => 'pgsql',
