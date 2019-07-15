@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Task;
+
 
 class TasksController extends Controller
 {
@@ -14,7 +16,9 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return "This is the task page";
+        $tasks = Task:: orderBy('due_date', 'asc')->paginate(2);
+
+        return view('tasks.index')->with('tasks', $tasks);
     }
 
     /**
@@ -40,7 +44,7 @@ class TasksController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255|min:3' ,
             'description' => 'required|string|max:10000|min:10',
-            'date' => 'required|date|'
+            'due_date' => 'required|date|'
         ]);
         //    create new Task
 
@@ -49,12 +53,14 @@ class TasksController extends Controller
         //     assign task data from request
         $task->name = $request->name;
         $task->description = $request->description;
-        $task->date = $request->date;
+        $task->due_date = $request->due_date;
         //    save task
             $task->save();
         //    flash session message with success
-        Session::flash('success', 'Created Task Successfully')
+        Session::flash('success', 'Created Task Successfully');
         //    return a redirect
+
+        return redirect()->route('task.index');
     }
 
     /**
@@ -76,7 +82,10 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        $task->dueDateFormatting = false;
+
+        return view('tasks.edit')->withTask($task);
     }
 
     /**
@@ -88,7 +97,27 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+             //    validate data
+             $this->validate($request, [
+                'name' => 'required|string|max:255|min:3' ,
+                'description' => 'required|string|max:10000|min:10',
+                'due_date' => 'required|date|'
+            ]);
+
+            //    find the related Task
+            $task = Task::find($id);
+    
+            //     assign task data from request
+            $task->name = $request->name;
+            $task->description = $request->description;
+            $task->due_date = $request->due_date;
+            //    save task
+                $task->save();
+            //    flash session message with success
+            Session::flash('success', 'Saved Task Successfully');
+            //    return a redirect
+    
+            return redirect()->route('task.index');
     }
 
     /**
