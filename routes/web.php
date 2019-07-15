@@ -18,3 +18,8 @@ Route::resource('task', 'TasksController');
 Route::get('/', function () {
     return redirect()->route('task.index');
 });
+
+Route::get('/', function()
+{
+    return User::all();
+});
