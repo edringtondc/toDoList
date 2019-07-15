@@ -71,7 +71,9 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        //search the task iwth the id
+        //return a view(show.blade.pho)
+        //pass variable with return that contains the specific tasks.
     }
 
     /**
@@ -127,7 +129,16 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   //finding specific task by id
+        $task = Task::find($id);
+
+        //deleting the task
+        $task->delete();
+
+        //session message
+        Session::flash('sucess', 'Deleted the task successfully');
+
+        //returning a redirect to the index page
+        return redirect()->route('task.index');
     }
 }
