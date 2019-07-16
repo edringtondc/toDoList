@@ -16,9 +16,10 @@
     @else
          @foreach($tasks as $task)
 
-          <div class="row">
-            <div class="col-sm-12">
-               <h3> {{ $task->name }} </h3>
+          <div class="row pb-3" style="border-bottom: 1px gray solid">
+
+            <div class="col-sm-12 mt-3">
+               <h3 > {{ $task->name }} </h3>
                <small> {{$task->created_at}}</small>
                <hr>
             <p>{{ $task->description}}</p>
