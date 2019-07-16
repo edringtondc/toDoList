@@ -6,7 +6,7 @@ $DATABASE_URL = parse_url('mysql://da9im8zl278ryveh:q2l9j9gvcmrzx3kc@y0nkiij6hum
 $host = $DATABASE_URL['host'];
 $username = $DATABASE_URL['user'];
 $password = $DATABASE_URL['pass'];
-$database = ltrim($DATABaSE_URL["path"], '/');
+$database = ltrim($DATABASE_URL["path"], '/');
 
 return [
 
