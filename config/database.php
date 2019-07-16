@@ -2,12 +2,11 @@
 
 use Illuminate\Support\Str;
 
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-$host = 'http://localhost:8000';
-$username = 'root';
-$password = 'root';
-$database = 'toDo';
+$DATABASE_URL=parse_url('mysql://da9im8zl278ryveh:q2l9j9gvcmrzx3kc@y0nkiij6humroewt.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/zz0pgp0lkz8t2pns');
+$host = $DATABASE_URL['host'];
+$username = $DATABASE_URL['user'];
+$password = $DATABASE_URL['pass'];
+$database = ltrim($DATABaSE_URL["path"], '/');
 
 return [
 
@@ -80,7 +79,6 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        'default' => env('DB_CONNECTION', 'your_heroku_mysql_connection'),
 
         'pgsql' => [
             'driver' => 'pgsql',
